@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="stylesheet" href="style.css" />
+
+    <title>Protótipo DPS | Funções, Limites e Derivadas</title>
+  </head>
+  <body>
+    <header>
+      <div class="wrap">
+        <div class="brand">
+          <h1>Protótipo DPS | Funções, Limites e Derivadas</h1>
+        </div>
+        <nav>
+          <a href="#seguidores">Seguidores (Função)</a>
+          <a href="#engajamento">Engajamento (Função)</a>
+          <a href="#derivadas">Velocidade (Função)</a>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <!-- Crescimento de Seguidore -->
+      <section id="seguidores" class="grid">
+        <article class="card">
+          <h2>1 Crescimento de Seguidores | f(t) = 5000·(1,08)<sup>t</sup></h2>
+          <p>
+            Modelo exponencial mensal. Ajuste o tempo <em>t</em> e veja a
+            projeção de seguidores.
+          </p>
+          <div class="controls">
+            <label
+              >Meses (t)
+              <input id="tMeses" type="range" min="0" max="36" value="12" />
+            </label>
+            <label
+              >Seguidores iniciais (S₀)
+              <input id="s0" type="number" value="5000" min="0" step="100" />
+            </label>
+            <label
+              >Taxa mensal (r)
+              <input
+                id="taxa"
+                type="number"
+                value="0.08"
+                min="0"
+                max="1"
+                step="0.01"
+              />
+            </label>
+            <label
+              >Nº de pontos no gráfico
+              <input id="pts1" type="number" value="36" min="6" max="120" />
+            </label>
+          </div>
+          <div class="kpi">
+            <span class="pill">t = <span id="kpiT">12</span> meses</span>
+            <span class="pill ok"
+              >f(t) = <span id="kpiF">—</span> seguidores</span
+            >
+          </div>
+          <canvas
+            id="chartSeguidores"
+            width="800"
+            height="260"
+            role="img"
+          ></canvas>
+        </article>
+      </section>
+
+      <!-- Saturação de engajamento -->
+      <section id="engajamento" class="grid">
+        <article class="card">
+          <h2>2 Saturação de Engajamento | Limite</h2>
+          <p>
+            Limite quando t tende ao infinito da função de engajamento: lim<sub
+              >t→∞</sub
+            >
+            E(t) = L
+          </p>
+          <label
+            >Capacidade máxima (K):
+            <input type="number" id="K" value="100" />
+          </label>
+          <p>Limite de engajamento: <span id="limiteEngaj"></span></p>
+          <canvas id="chartEngaj" width="500" height="200"></canvas>
+        </article>
+      </section>
+
+      <!-- Velocidade instantânea -->
+      <section id="derivadas" class="grid">
+        <article class="card">
+            <h2>3 Velocidade Instantânea | v(t) = ds/dt</h2>
+            <label
+              >Tempo t:
+              <input type="number" id="tDer" value="10" />
+            </label>
+            <p>Posição s(t): <span id="posS"></span> m</p>
+            <p>Velocidade v(t): <span id="velV"></span> m/s</p>
+            <canvas id="chartDeriv" width="500" height="200"></canvas>
+        </article>
+      </section>
+    </main>
+
+    <script src="script.js"></script>
+  </body>
+</html>
