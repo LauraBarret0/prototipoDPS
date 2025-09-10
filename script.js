@@ -158,7 +158,7 @@ function renderDeriv(){
   const X = xScale(t),
         Y = yScale(v(t));
 
-  ctxDer.fillStyle = "#e63946"; // cor vermelha para destaque
+  ctxDer.fillStyle = "#e63946"; 
   ctxDer.beginPath();
   ctxDer.arc(X, Y, 6, 0, 2 * Math.PI);
   ctxDer.fill();
