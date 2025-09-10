@@ -115,22 +115,54 @@ const tDer = document.getElementById("tDer"),
       velV = document.getElementById("velV"),
       ctxDer = document.getElementById("chartDeriv").getContext("2d");
 
-function s(t){ return 0.5*t*t; }
-function v(t, dt=0.01){ return (s(t+dt)-s(t-dt))/(2*dt); }
+function s(t){ 
+  return 0.5 * t * t;  
+}
+function v(t, dt=0.01){ 
+  return (s(t+dt)-s(t-dt))/(2*dt);  // derivada numérica
+}
 
 function renderDeriv(){
   const t = +tDer.value;
   posS.textContent = s(t).toFixed(2);
   velV.textContent = v(t).toFixed(2);
 
-  const N=36;
+  const N = 36;
   const data = [];
   for(let i=0;i<=N;i++){
-    let t0=i;
-    let yVal=v(t0);
+    let t0 = i;
+    let yVal = v(t0);
     data.push({x: t0, y: yVal});
   }
+
+  // desenha curva
   drawSeries(ctxDer, data, { color: "#5c9925" });
+
+  // destacar ponto atual
+  const xs = data.map(d => d.x),
+        ys = data.map(d => d.y);
+
+  const minX = Math.min(...xs),
+        maxX = Math.max(...xs),
+        minY = Math.min(...ys),
+        maxY = Math.max(...ys);
+
+  const W = ctxDer.canvas.width,
+        H = ctxDer.canvas.height,
+        xPad = 20*1.5,
+        yPad = 20*1.2;
+
+  const xScale = x => xPad + ((x - minX) / (maxX - minX || 1)) * (W - 2 * xPad),
+        yScale = y => H - yPad - ((y - minY) / (maxY - minY || 1)) * (H - 2 * yPad);
+
+  const X = xScale(t),
+        Y = yScale(v(t));
+
+  ctxDer.fillStyle = "#e63946"; // cor vermelha para destaque
+  ctxDer.beginPath();
+  ctxDer.arc(X, Y, 6, 0, 2 * Math.PI);
+  ctxDer.fill();
 }
+
 tDer.addEventListener("input", renderDeriv);
 renderDeriv();
